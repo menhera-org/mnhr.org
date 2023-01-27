@@ -1,0 +1,15 @@
+[package]
+name = "mnhr-org"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+hyper = { version = "0.14", features = ["full"] }
+tokio = { version = "1", features = ["full"] }
+dotenvy = "0.15"
+serde_json = "1.0"
+url = "2.3"
+regex = "1"
+
