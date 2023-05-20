@@ -50,6 +50,14 @@ async fn get(req: Request<Body>, _addr: SocketAddr) -> Result<Response<Body>, In
     let data_dir = env::var("DATA_DIR").unwrap_or("data".to_string());
     let path = req.uri().path();
     let path = path.trim_start_matches('/');
+    if path == "" {
+        let url = env::var("DEFAULT_URL").unwrap_or("https://www.menhera.org/".to_string());
+        let url = url.as_str();
+        return Ok(create_json_response(&json!({
+            "error": Value::Null,
+            "url": url,
+        }), 301.try_into().unwrap(), Some(url)));
+    }
     let re = Regex::new(r"^[a-zA-Z0-9_]+([-.][a-zA-Z0-9_]+)*$").unwrap();
     if re.is_match(path) == false {
         return Ok(create_json_response(&json!({
